@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.orders.dao.WindowMapper">
+  <resultMap id="BaseResultMap" type="com.orders.entity.Window">
+    <id column="window_id" jdbcType="INTEGER" property="windowId" />
+    <result column="window_name" jdbcType="VARCHAR" property="windowName" />
+    <result column="window_number" jdbcType="TINYINT" property="windowNumber" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    window_id, window_name, window_number
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tb_window
+    where window_id = #{windowId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tb_window
+    where window_id = #{windowId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.orders.entity.Window">
+    insert into tb_window (window_id, window_name, window_number
+      )
+    values (#{windowId,jdbcType=INTEGER}, #{windowName,jdbcType=VARCHAR}, #{windowNumber,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.orders.entity.Window">
+    insert into tb_window
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="windowId != null">
+        window_id,
+      </if>
+      <if test="windowName != null">
+        window_name,
+      </if>
+      <if test="windowNumber != null">
+        window_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="windowId != null">
+        #{windowId,jdbcType=INTEGER},
+      </if>
+      <if test="windowName != null">
+        #{windowName,jdbcType=VARCHAR},
+      </if>
+      <if test="windowNumber != null">
+        #{windowNumber,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.orders.entity.Window">
+    update tb_window
+    <set>
+      <if test="windowName != null">
+        window_name = #{windowName,jdbcType=VARCHAR},
+      </if>
+      <if test="windowNumber != null">
+        window_number = #{windowNumber,jdbcType=TINYINT},
+      </if>
+    </set>
+    where window_id = #{windowId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.orders.entity.Window">
+    update tb_window
+    set window_name = #{windowName,jdbcType=VARCHAR},
+      window_number = #{windowNumber,jdbcType=TINYINT}
+    where window_id = #{windowId,jdbcType=INTEGER}
+  </update>
+</mapper>
