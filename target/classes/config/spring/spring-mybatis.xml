@@ -24,7 +24,8 @@
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
 	<!-- 数据源配置 -->
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource">
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close"
+			init-method="init" scope="singleton">
 		<property name="username" value="${dataSource.user}"></property>
 		<property name="password" value="${dataSource.password}"></property>
 		<property name="driverClassName" value="${dataSource.driverClass}"></property>

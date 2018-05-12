@@ -23,9 +23,11 @@ public class WindowController {
 	private WindowService windowService;
 	
 	
-	@ApiOperation(value="Swagger test1")
+	@ApiOperation(value="按主键查询菜单窗口")
 	@GetMapping(value="/{windowId}")
 	public ResponseMessage<Window> getWindowById(@PathVariable Integer windowId){
 		return Result.success(windowService.getByPrimaryKey(windowId));
 	}
+	
+	
 }

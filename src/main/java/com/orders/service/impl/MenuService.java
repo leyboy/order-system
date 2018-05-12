@@ -1,13 +1,15 @@
 package com.orders.service.impl;
 
+
 import org.springframework.stereotype.Service;
 
-import com.orders.dao.WindowMapper;
-import com.orders.entity.Window;
+import com.orders.dao.MenuMapper;
+import com.orders.entity.Menu;
 import com.orders.service.BaseService;
 
-@Service(value="windowService")
-public class WindowService extends BaseService<WindowMapper,Window,Integer > {
+@Service("menuService")
+public class MenuService extends BaseService<MenuMapper,Menu,Integer> {
+	
 
 	@Override
 	public Integer deleteByPrimaryKey(Integer primaryKey) {
@@ -16,34 +18,33 @@ public class WindowService extends BaseService<WindowMapper,Window,Integer > {
 	}
 
 	@Override
-	public Integer insert(Window record) {
+	public Integer insert(Menu record) {
 		// TODO Auto-generated method stub
 		return this.getDao().insert(record);
 	}
 
 	@Override
-	public Integer insertSelective(Window record) {
+	public Integer insertSelective(Menu record) {
 		// TODO Auto-generated method stub
 		return this.getDao().insertSelective(record);
 	}
 
 	@Override
-	public Window getByPrimaryKey(Integer primaryKey) {
+	public Menu getByPrimaryKey(Integer primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().selectByPrimaryKey(primaryKey);
 	}
 
 	@Override
-	public Integer updateByPrimaryKeySelective(Window record) {
+	public Integer updateByPrimaryKeySelective(Menu record) {
 		// TODO Auto-generated method stub
-		return this.getDao().updateByPrimaryKey(record);
+		return this.getDao().updateByPrimaryKeySelective(record);
 	}
 
 	@Override
-	public Integer updateByPrimaryKey(Window record) {
+	public Integer updateByPrimaryKey(Menu record) {
 		// TODO Auto-generated method stub
 		return this.getDao().updateByPrimaryKey(record);
 	}
-
 
 }
