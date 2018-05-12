@@ -1,8 +1,12 @@
 package com.orders.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.orders.entity.Customer;
 
+@Mapper
 public interface CustomerMapper {
+	
     int deleteByPrimaryKey(Integer customerId);
 
     int insert(Customer record);

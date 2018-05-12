@@ -1,8 +1,12 @@
 package com.orders.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.orders.entity.Window;
 
+@Mapper
 public interface WindowMapper {
+	
     int deleteByPrimaryKey(Integer windowId);
 
     int insert(Window record);

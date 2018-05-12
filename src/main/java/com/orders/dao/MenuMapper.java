@@ -1,8 +1,12 @@
 package com.orders.dao;
 
+import org.apache.ibatis.annotations.Mapper;
+
 import com.orders.entity.Menu;
 
+@Mapper
 public interface MenuMapper {
+	
     int deleteByPrimaryKey(Integer menuId);
 
     int insert(Menu record);
