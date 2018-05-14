@@ -9,32 +9,6 @@
 	<sql id="Base_Column_List">
 		window_id, window_name, window_number
 	</sql>
-	<select id="listMenusByCondition" resultMap="BaseResultMap"
-		parameterType="java.lang.Object">
-		select * from tb_menu
-		<where>
-			<if test="condition.windowId != null and condition.windowId != ''">
-				and window_id = #{condition.windowId}
-			</if>
-			<if test="condition.menuName != null and condition.menuName != ''">
-				<bind name="pattern1" value="'%'+condition.menuName+'%'" />
-				and menu_name like #{pattern1}
-			</if>
-		</where>
-	</select>
-	<select id="countMenusByCondition" resultType="int"
-		parameterType="java.lang.Object">
-		select count(0) from tb_menu
-		<where>
-			<if test="condition.windowId != null and condition.windowId != ''">
-				and window_id = #{condition.windowId}
-			</if>
-			<if test="condition.menuName != null and condition.menuName != ''">
-				<bind name="pattern1" value="'%'+condition.menuName+'%'" />
-				and menu_name like #{pattern1}
-			</if>
-		</where>
-	</select>
 	<select id="selectByPrimaryKey" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
 		select

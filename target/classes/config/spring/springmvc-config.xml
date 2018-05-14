@@ -22,6 +22,9 @@
 	<!-- 切面包扫描 -->
 	<!-- 切面包扫描 -->
 	<context:component-scan base-package="com.orders.aspect.controller"/>
+	
+	<!-- 工具类扫描 -->
+	<context:component-scan base-package="com.orders.util"></context:component-scan>
 
 	<aop:aspectj-autoproxy proxy-target-class="true"></aop:aspectj-autoproxy>
 

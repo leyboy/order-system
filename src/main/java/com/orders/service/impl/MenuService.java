@@ -3,6 +3,8 @@ package com.orders.service.impl;
 
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.orders.dao.MenuMapper;
@@ -49,6 +51,13 @@ public class MenuService extends BaseService<MenuMapper,Menu,String> {
 		return this.getDao().updateByPrimaryKey(record);
 	}
 
+	public List<Menu> listMenusByCondition(Menu condition, Integer pageSize, Integer pageNum) {
+		return this.getDao().listMenusByCondition(condition, pageSize, pageNum);
+	}
 	
+	
+	public Integer countMenusByCondition(Menu condition){
+		return this.getDao().countMenusByCondition(condition);
+	}
 
 }

@@ -20,11 +20,13 @@ import com.orders.entity.Menu;
 import com.orders.entity.Window;
 import com.orders.service.impl.MenuService;
 import com.orders.service.impl.WindowService;
+import com.orders.util.BeanMapper;
 import com.orders.util.PageUtils;
 import com.orders.util.ResponseMessage;
 import com.orders.util.ResponseMessageCodeEnum;
 import com.orders.util.Result;
 import com.orders.util.UUID;
+import com.orders.vo.MenuVo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -41,7 +43,8 @@ public class MenuController {
 	@Autowired
 	private WindowService windowService;
 	
-	
+	@Autowired
+	private BeanMapper beanMapper;
 
 	private static Logger logger = LoggerFactory.getLogger(MenuController.class);
 
@@ -90,13 +93,14 @@ public class MenuController {
 		if (menuName != null && (!"".equals(menuName))) {
 			menu.setMenuName(menuName);
 		}
-		List<Menu> menus = windowService.listMenusByCondition(menu, pageSize, pageNum);
-		map.put("menus", menus);
-		int totalCount = windowService.countMenusByCondition(menu);
+		List<MenuVo> menuVOs = beanMapper.mapList(menuService.listMenusByCondition(menu, pageSize, pageNum), MenuVo.class);
+		map.put("menuVOs", menuVOs);
+		int totalCount = menuService.countMenusByCondition(menu);
 		map.put("totalCount", totalCount);
-		if (pageSize == null && pageSize == 0) {
+		if (pageSize == null) {
 			pageSize = PageUtils.DEFAULT_PER_PAGE_SIZE;
 		}
+		logger.info("pageNum:{},pageSize:{}",pageNum,pageSize);
 		map.put("totalPages", PageUtils.getTotalPages(pageSize, totalCount));
 		return Result.success(map);
 	}

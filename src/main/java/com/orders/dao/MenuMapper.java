@@ -1,7 +1,10 @@
 package com.orders.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.orders.entity.Menu;
 
@@ -19,4 +22,10 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
+    
+    List<Menu> listMenusByCondition(@Param("condition") Menu condition,
+            @Param("pageSize")	Integer pageSize,@Param("pageNum") Integer pageNum);
+    
+    
+    Integer countMenusByCondition(@Param("condition") Menu condition);
 }

@@ -6,6 +6,7 @@ import com.orders.entity.Customer;
 
 @Mapper
 public interface CustomerMapper {
+	
     int deleteByPrimaryKey(String customerId);
 
     int insert(Customer record);
