@@ -1,7 +1,7 @@
 package com.orders.service.impl;
 
 
-import java.util.List;
+
 
 import org.springframework.stereotype.Service;
 
@@ -50,8 +50,5 @@ public class MenuService extends BaseService<MenuMapper,Menu,String> {
 	}
 
 	
-    public List<Menu> listMenusByCondition(Menu condition,
-    	Integer pageSize,Integer pageNum){
-    	return this.getDao().listMenusByCondition(condition, pageSize, pageNum);
-    }
+
 }

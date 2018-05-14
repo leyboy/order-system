@@ -1,11 +1,16 @@
 package com.orders.entity;
 
+import java.util.List;
+
 public class Window {
+	
     private String windowId;
 
     private String windowName;
 
-    private Byte windowNumber;
+    private Integer windowNumber;
+    
+    private List<Menu> menus;
 
     public String getWindowId() {
         return windowId;
@@ -23,11 +28,20 @@ public class Window {
         this.windowName = windowName == null ? null : windowName.trim();
     }
 
-    public Byte getWindowNumber() {
-        return windowNumber;
-    }
+	public Integer getWindowNumber() {
+		return windowNumber;
+	}
 
-    public void setWindowNumber(Byte windowNumber) {
-        this.windowNumber = windowNumber;
-    }
+	public void setWindowNumber(Integer windowNumber) {
+		this.windowNumber = windowNumber;
+	}
+
+	public List<Menu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(List<Menu> menus) {
+		this.menus = menus;
+	}
+
 }
