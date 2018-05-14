@@ -2,38 +2,38 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.orders.dao.OrderMapper">
   <resultMap id="BaseResultMap" type="com.orders.entity.Order">
-    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
     <result column="order_reservation_time" jdbcType="VARCHAR" property="orderReservationTime" />
     <result column="order_discount" jdbcType="DOUBLE" property="orderDiscount" />
     <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
     <result column="order_dish_number" jdbcType="TINYINT" property="orderDishNumber" />
     <result column="order_pick_number" jdbcType="TINYINT" property="orderPickNumber" />
-    <result column="window_id" jdbcType="INTEGER" property="windowId" />
-    <result column="menu_id" jdbcType="INTEGER" property="menuId" />
-    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="window_id" jdbcType="VARCHAR" property="windowId" />
+    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
   </resultMap>
   <sql id="Base_Column_List">
     order_id, order_reservation_time, order_discount, order_code, order_dish_number, 
     order_pick_number, window_id, menu_id, customer_id
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from tb_order
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_order
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.orders.entity.Order">
     insert into tb_order (order_id, order_reservation_time, order_discount, 
       order_code, order_dish_number, order_pick_number, 
       window_id, menu_id, customer_id
       )
-    values (#{orderId,jdbcType=INTEGER}, #{orderReservationTime,jdbcType=VARCHAR}, #{orderDiscount,jdbcType=DOUBLE}, 
+    values (#{orderId,jdbcType=VARCHAR}, #{orderReservationTime,jdbcType=VARCHAR}, #{orderDiscount,jdbcType=DOUBLE}, 
       #{orderCode,jdbcType=VARCHAR}, #{orderDishNumber,jdbcType=TINYINT}, #{orderPickNumber,jdbcType=TINYINT}, 
-      #{windowId,jdbcType=INTEGER}, #{menuId,jdbcType=INTEGER}, #{customerId,jdbcType=INTEGER}
+      #{windowId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.orders.entity.Order">
@@ -69,7 +69,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="orderId != null">
-        #{orderId,jdbcType=INTEGER},
+        #{orderId,jdbcType=VARCHAR},
       </if>
       <if test="orderReservationTime != null">
         #{orderReservationTime,jdbcType=VARCHAR},
@@ -87,13 +87,13 @@
         #{orderPickNumber,jdbcType=TINYINT},
       </if>
       <if test="windowId != null">
-        #{windowId,jdbcType=INTEGER},
+        #{windowId,jdbcType=VARCHAR},
       </if>
       <if test="menuId != null">
-        #{menuId,jdbcType=INTEGER},
+        #{menuId,jdbcType=VARCHAR},
       </if>
       <if test="customerId != null">
-        #{customerId,jdbcType=INTEGER},
+        #{customerId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -116,16 +116,16 @@
         order_pick_number = #{orderPickNumber,jdbcType=TINYINT},
       </if>
       <if test="windowId != null">
-        window_id = #{windowId,jdbcType=INTEGER},
+        window_id = #{windowId,jdbcType=VARCHAR},
       </if>
       <if test="menuId != null">
-        menu_id = #{menuId,jdbcType=INTEGER},
+        menu_id = #{menuId,jdbcType=VARCHAR},
       </if>
       <if test="customerId != null">
-        customer_id = #{customerId,jdbcType=INTEGER},
+        customer_id = #{customerId,jdbcType=VARCHAR},
       </if>
     </set>
-    where order_id = #{orderId,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.orders.entity.Order">
     update tb_order
@@ -134,9 +134,9 @@
       order_code = #{orderCode,jdbcType=VARCHAR},
       order_dish_number = #{orderDishNumber,jdbcType=TINYINT},
       order_pick_number = #{orderPickNumber,jdbcType=TINYINT},
-      window_id = #{windowId,jdbcType=INTEGER},
-      menu_id = #{menuId,jdbcType=INTEGER},
-      customer_id = #{customerId,jdbcType=INTEGER}
-    where order_id = #{orderId,jdbcType=INTEGER}
+      window_id = #{windowId,jdbcType=VARCHAR},
+      menu_id = #{menuId,jdbcType=VARCHAR},
+      customer_id = #{customerId,jdbcType=VARCHAR}
+    where order_id = #{orderId,jdbcType=VARCHAR}
   </update>
 </mapper>

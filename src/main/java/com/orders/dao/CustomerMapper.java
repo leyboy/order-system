@@ -4,12 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.orders.entity.Customer;
 
-/**
- * @author LiuEnYuan
- * **/
 @Mapper
 public interface CustomerMapper {
-	
     int deleteByPrimaryKey(String customerId);
 
     int insert(Customer record);

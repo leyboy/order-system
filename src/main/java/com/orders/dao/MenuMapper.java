@@ -21,16 +21,7 @@ public interface MenuMapper {
     int updateByPrimaryKeySelective(Menu record);
 
     int updateByPrimaryKey(Menu record);
-    
-    /**
-     * 根据情况列出不同菜品
-     * @param condition
-     * 			查询条件
-     * @param pageNum
-     * 			当前页
-     * @param pageSize
-     * 			每页的记录数
-     * **/
+   
     List<Menu> listMenusByCondition(@Param("condition") Menu condition,
-    	 @Param("pageSize")	Integer pageSize,@Param("pageNum") Integer pageNum);
+         @Param("pageSize")	Integer pageSize,@Param("pageNum") Integer pageNum);
 }

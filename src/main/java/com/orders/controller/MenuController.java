@@ -64,8 +64,5 @@ public class MenuController {
 		logger.info("删除菜品为{}",menuId);
 		return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
 				"删除成功",true);
-	}
-	
-	
-	
+	}	
 }
