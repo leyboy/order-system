@@ -7,10 +7,10 @@ import com.orders.entity.Customer;
 import com.orders.service.BaseService;
 
 @Service("customerService")
-public class CustomerService extends BaseService<CustomerMapper,Customer,Integer> {
+public class CustomerService extends BaseService<CustomerMapper,Customer,String> {
 
 	@Override
-	public Integer deleteByPrimaryKey(Integer primaryKey) {
+	public Integer deleteByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().deleteByPrimaryKey(primaryKey);
 	}
@@ -28,7 +28,7 @@ public class CustomerService extends BaseService<CustomerMapper,Customer,Integer
 	}
 
 	@Override
-	public Customer getByPrimaryKey(Integer primaryKey) {
+	public Customer getByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().selectByPrimaryKey(primaryKey);
 	}

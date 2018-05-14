@@ -7,10 +7,10 @@ import com.orders.entity.Window;
 import com.orders.service.BaseService;
 
 @Service(value="windowService")
-public class WindowService extends BaseService<WindowMapper,Window,Integer > {
+public class WindowService extends BaseService<WindowMapper,Window,String > {
 
 	@Override
-	public Integer deleteByPrimaryKey(Integer primaryKey) {
+	public Integer deleteByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().deleteByPrimaryKey(primaryKey);
 	}
@@ -28,7 +28,7 @@ public class WindowService extends BaseService<WindowMapper,Window,Integer > {
 	}
 
 	@Override
-	public Window getByPrimaryKey(Integer primaryKey) {
+	public Window getByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().selectByPrimaryKey(primaryKey);
 	}

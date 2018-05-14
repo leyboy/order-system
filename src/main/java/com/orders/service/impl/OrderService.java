@@ -8,10 +8,10 @@ import com.orders.entity.Order;
 import com.orders.service.BaseService;
 
 @Service("orderService")
-public class OrderService extends BaseService<OrderMapper, Order, Integer> {
+public class OrderService extends BaseService<OrderMapper, Order, String> {
 
 	@Override
-	public Integer deleteByPrimaryKey(Integer primaryKey) {
+	public Integer deleteByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().deleteByPrimaryKey(primaryKey);
 	}
@@ -29,7 +29,7 @@ public class OrderService extends BaseService<OrderMapper, Order, Integer> {
 	}
 
 	@Override
-	public Order getByPrimaryKey(Integer primaryKey) {
+	public Order getByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().selectByPrimaryKey(primaryKey);
 	}

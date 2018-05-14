@@ -8,11 +8,11 @@ import com.orders.entity.Menu;
 import com.orders.service.BaseService;
 
 @Service("menuService")
-public class MenuService extends BaseService<MenuMapper,Menu,Integer> {
+public class MenuService extends BaseService<MenuMapper,Menu,String> {
 	
 
 	@Override
-	public Integer deleteByPrimaryKey(Integer primaryKey) {
+	public Integer deleteByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().deleteByPrimaryKey(primaryKey);
 	}
@@ -30,7 +30,7 @@ public class MenuService extends BaseService<MenuMapper,Menu,Integer> {
 	}
 
 	@Override
-	public Menu getByPrimaryKey(Integer primaryKey) {
+	public Menu getByPrimaryKey(String primaryKey) {
 		// TODO Auto-generated method stub
 		return this.getDao().selectByPrimaryKey(primaryKey);
 	}
