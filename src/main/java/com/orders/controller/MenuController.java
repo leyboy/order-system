@@ -77,7 +77,7 @@ public class MenuController {
 		return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(), "删除成功", true);
 	}
 
-	@SuppressWarnings("null")
+
 	@ApiOperation(value = "按条件查询菜品")
 	@GetMapping(value = "/queryMenusByCondition")
 	public ResponseMessage<Map<String, Object>> queryMenusByCondition(
