@@ -15,6 +15,19 @@
     from tb_customer
     where customer_id = #{customerId,jdbcType=VARCHAR}
   </select>
+  <select id="getCustomerByCondition" parameterType="java.lang.Object" resultMap="BaseResultMap">
+  	select
+  	<include refid="Base_Column_List"/>
+  	from tb_customer
+  	<where>
+  		<if test="condition.customerName != null and condition.customerName != ''">
+  			and customer_name = #{condition.customerName}
+  		</if>
+  		<if test="condition.customerNumber != null and condition.customerNumber != ''">
+  			and customer_number = #{condition.customerNumber}
+  		</if>
+  	</where>
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from tb_customer
     where customer_id = #{customerId,jdbcType=VARCHAR}

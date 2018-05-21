@@ -1,142 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.orders.dao.OrderMapper">
-  <resultMap id="BaseResultMap" type="com.orders.entity.Order">
-    <id column="order_id" jdbcType="VARCHAR" property="orderId" />
-    <result column="order_reservation_time" jdbcType="VARCHAR" property="orderReservationTime" />
-    <result column="order_discount" jdbcType="DOUBLE" property="orderDiscount" />
-    <result column="order_code" jdbcType="VARCHAR" property="orderCode" />
-    <result column="order_dish_number" jdbcType="TINYINT" property="orderDishNumber" />
-    <result column="order_pick_number" jdbcType="TINYINT" property="orderPickNumber" />
-    <result column="window_id" jdbcType="VARCHAR" property="windowId" />
-    <result column="menu_id" jdbcType="VARCHAR" property="menuId" />
-    <result column="customer_id" jdbcType="VARCHAR" property="customerId" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    order_id, order_reservation_time, order_discount, order_code, order_dish_number, 
-    order_pick_number, window_id, menu_id, customer_id
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from tb_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-    delete from tb_order
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="com.orders.entity.Order">
-    insert into tb_order (order_id, order_reservation_time, order_discount, 
-      order_code, order_dish_number, order_pick_number, 
-      window_id, menu_id, customer_id
-      )
-    values (#{orderId,jdbcType=VARCHAR}, #{orderReservationTime,jdbcType=VARCHAR}, #{orderDiscount,jdbcType=DOUBLE}, 
-      #{orderCode,jdbcType=VARCHAR}, #{orderDishNumber,jdbcType=TINYINT}, #{orderPickNumber,jdbcType=TINYINT}, 
-      #{windowId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.orders.entity.Order">
-    insert into tb_order
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        order_id,
-      </if>
-      <if test="orderReservationTime != null">
-        order_reservation_time,
-      </if>
-      <if test="orderDiscount != null">
-        order_discount,
-      </if>
-      <if test="orderCode != null">
-        order_code,
-      </if>
-      <if test="orderDishNumber != null">
-        order_dish_number,
-      </if>
-      <if test="orderPickNumber != null">
-        order_pick_number,
-      </if>
-      <if test="windowId != null">
-        window_id,
-      </if>
-      <if test="menuId != null">
-        menu_id,
-      </if>
-      <if test="customerId != null">
-        customer_id,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="orderId != null">
-        #{orderId,jdbcType=VARCHAR},
-      </if>
-      <if test="orderReservationTime != null">
-        #{orderReservationTime,jdbcType=VARCHAR},
-      </if>
-      <if test="orderDiscount != null">
-        #{orderDiscount,jdbcType=DOUBLE},
-      </if>
-      <if test="orderCode != null">
-        #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orderDishNumber != null">
-        #{orderDishNumber,jdbcType=TINYINT},
-      </if>
-      <if test="orderPickNumber != null">
-        #{orderPickNumber,jdbcType=TINYINT},
-      </if>
-      <if test="windowId != null">
-        #{windowId,jdbcType=VARCHAR},
-      </if>
-      <if test="menuId != null">
-        #{menuId,jdbcType=VARCHAR},
-      </if>
-      <if test="customerId != null">
-        #{customerId,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.orders.entity.Order">
-    update tb_order
-    <set>
-      <if test="orderReservationTime != null">
-        order_reservation_time = #{orderReservationTime,jdbcType=VARCHAR},
-      </if>
-      <if test="orderDiscount != null">
-        order_discount = #{orderDiscount,jdbcType=DOUBLE},
-      </if>
-      <if test="orderCode != null">
-        order_code = #{orderCode,jdbcType=VARCHAR},
-      </if>
-      <if test="orderDishNumber != null">
-        order_dish_number = #{orderDishNumber,jdbcType=TINYINT},
-      </if>
-      <if test="orderPickNumber != null">
-        order_pick_number = #{orderPickNumber,jdbcType=TINYINT},
-      </if>
-      <if test="windowId != null">
-        window_id = #{windowId,jdbcType=VARCHAR},
-      </if>
-      <if test="menuId != null">
-        menu_id = #{menuId,jdbcType=VARCHAR},
-      </if>
-      <if test="customerId != null">
-        customer_id = #{customerId,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.orders.entity.Order">
-    update tb_order
-    set order_reservation_time = #{orderReservationTime,jdbcType=VARCHAR},
-      order_discount = #{orderDiscount,jdbcType=DOUBLE},
-      order_code = #{orderCode,jdbcType=VARCHAR},
-      order_dish_number = #{orderDishNumber,jdbcType=TINYINT},
-      order_pick_number = #{orderPickNumber,jdbcType=TINYINT},
-      window_id = #{windowId,jdbcType=VARCHAR},
-      menu_id = #{menuId,jdbcType=VARCHAR},
-      customer_id = #{customerId,jdbcType=VARCHAR}
-    where order_id = #{orderId,jdbcType=VARCHAR}
-  </update>
+	<resultMap id="BaseResultMap" type="com.orders.entity.Order">
+		<id column="order_id" jdbcType="VARCHAR" property="orderId" />
+		<result column="order_time" jdbcType="TIMESTAMP" property="orderTime" />
+		<result column="order_code" jdbcType="VARCHAR" property="orderCode" />
+		<result column="order_dish_number" jdbcType="TINYINT" property="orderDishNumber" />
+		<result column="order_pick_number" jdbcType="TINYINT" property="orderPickNumber" />
+		<result column="window_id" jdbcType="VARCHAR" property="windowId" />
+		<result column="menu_id" jdbcType="VARCHAR" property="menuId" />
+		<result column="customer_id" jdbcType="VARCHAR" property="customerId" />
+		<result column="order_state" jdbcType="TINYINT" property="orderState" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		order_id, order_time,
+		order_code,
+		order_dish_number,
+		order_pick_number, window_id, menu_id,
+		customer_id,order_state
+	</sql>
+	<select id="selectByPrimaryKey" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from tb_order
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+		delete from
+		tb_order
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</delete>
+	<insert id="insert" parameterType="com.orders.entity.Order">
+		insert into tb_order
+		(order_id, order_time,
+		order_code,
+		order_dish_number,
+		order_pick_number,
+		window_id, menu_id,
+		customer_id,order_state
+		)
+		values
+		(#{orderId,jdbcType=VARCHAR},
+		#{order_time,jdbcType=TIMESTAMP},
+		#{orderCode,jdbcType=VARCHAR},
+		#{orderDishNumber,jdbcType=TINYINT},
+		#{orderPickNumber,jdbcType=TINYINT},
+		#{windowId,jdbcType=VARCHAR},
+		#{menuId,jdbcType=VARCHAR}, #{customerId,jdbcType=VARCHAR},
+		#{orderState,jdbcType=TINYINT}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.orders.entity.Order">
+		insert into tb_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				order_id,
+			</if>
+			<if test="orderTime != null">
+				order_time,
+			</if>
+			<if test="orderCode != null">
+				order_code,
+			</if>
+			<if test="orderDishNumber != null">
+				order_dish_number,
+			</if>
+			<if test="orderPickNumber != null">
+				order_pick_number,
+			</if>
+			<if test="windowId != null">
+				window_id,
+			</if>
+			<if test="menuId != null">
+				menu_id,
+			</if>
+			<if test="customerId != null">
+				customer_id,
+			</if>
+			<if test="orderState != null">
+				order_state,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="orderId != null">
+				#{orderId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderTime != null">
+				#{orderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderCode != null">
+				#{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDishNumber != null">
+				#{orderDishNumber,jdbcType=TINYINT},
+			</if>
+			<if test="orderPickNumber != null">
+				#{orderPickNumber,jdbcType=TINYINT},
+			</if>
+			<if test="windowId != null">
+				#{windowId,jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null">
+				#{menuId,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				#{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderState != null">
+				#{orderState,jdbcType=TINYINT}
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.orders.entity.Order">
+		update tb_order
+		<set>
+			<if test="orderTime != null">
+				order_time =
+				#{orderTime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="orderCode != null">
+				order_code = #{orderCode,jdbcType=VARCHAR},
+			</if>
+			<if test="orderDishNumber != null">
+				order_dish_number = #{orderDishNumber,jdbcType=TINYINT},
+			</if>
+			<if test="orderPickNumber != null">
+				order_pick_number = #{orderPickNumber,jdbcType=TINYINT},
+			</if>
+			<if test="windowId != null">
+				window_id = #{windowId,jdbcType=VARCHAR},
+			</if>
+			<if test="menuId != null">
+				menu_id = #{menuId,jdbcType=VARCHAR},
+			</if>
+			<if test="customerId != null">
+				customer_id = #{customerId,jdbcType=VARCHAR},
+			</if>
+			<if test="orderState != null">
+				order_state = #{orderState,jdbcType=TINYINT}
+			</if>
+		</set>
+		where order_id = #{orderId,jdbcType=VARCHAR}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.orders.entity.Order">
+		update tb_order
+		set order_time = #{ordeTime,jdbcType=TIMESTAMP},
+		order_code =
+		#{orderCode,jdbcType=VARCHAR},
+		order_dish_number =
+		#{orderDishNumber,jdbcType=TINYINT},
+		order_pick_number =
+		#{orderPickNumber,jdbcType=TINYINT},
+		window_id =
+		#{windowId,jdbcType=VARCHAR},
+		menu_id = #{menuId,jdbcType=VARCHAR},
+		customer_id = #{customerId,jdbcType=VARCHAR},
+		order_state =
+		#{orderState,jdbcType=TINYINT}
+		where order_id =
+		#{orderId,jdbcType=VARCHAR}
+	</update>
+
+
+	<sql id="OrderVo1ColumnList">
+		m.menu_name as menuName,sum(o.order_dish_number) as
+		countMenuDish
+	</sql>
+
+	<resultMap type="com.orders.vo.OrderVo1" id="OrderVo1ResultMap">
+		<result column="menuName" property="menuName" />
+		<result column="countMenuDish" property="countMenuDish" />
+	</resultMap>
+
+
+	<select id="listOrderVo1s" resultMap="OrderVo1ResultMap"
+		parameterType="java.lang.String">
+		SELECT
+		<include refid="OrderVo1ColumnList" />
+		FROM tb_order o,tb_menu m
+		WHERE
+		<if test="windowId != null and windowId != ''">
+			o.window_id = #{windowId} and
+		</if>
+		o.menu_id = m.menu_id
+		group by m.menu_id
+	</select>
 </mapper>

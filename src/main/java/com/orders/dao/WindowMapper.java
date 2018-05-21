@@ -2,6 +2,7 @@ package com.orders.dao;
 
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.orders.entity.Window;
 
@@ -18,5 +19,8 @@ public interface WindowMapper {
     int updateByPrimaryKeySelective(Window record);
 
     int updateByPrimaryKey(Window record);
+    
+    
+    Window getWindowByWindowName(@Param("windowName")String windowName);
   
 }

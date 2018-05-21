@@ -1,6 +1,7 @@
 package com.orders.dao;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.orders.entity.Customer;
 
@@ -18,4 +19,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+    
+    Customer getCustomerByCondition(@Param("condition") Customer condition);
 }

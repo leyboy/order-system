@@ -1,23 +1,26 @@
 package com.orders.entity;
 
+import java.util.Date;
+
 public class Order {
+	
     private String orderId;
 
-    private String orderReservationTime;
-
-    private Double orderDiscount;
+    private Date orderTime;
 
     private String orderCode;
 
-    private Byte orderDishNumber;
+    private Integer orderDishNumber;
 
-    private Byte orderPickNumber;
+    private Integer orderPickNumber;
 
     private String windowId;
 
     private String menuId;
 
     private String customerId;
+    
+    private Integer orderState;
 
     public String getOrderId() {
         return orderId;
@@ -27,21 +30,15 @@ public class Order {
         this.orderId = orderId == null ? null : orderId.trim();
     }
 
-    public String getOrderReservationTime() {
-        return orderReservationTime;
-    }
 
-    public void setOrderReservationTime(String orderReservationTime) {
-        this.orderReservationTime = orderReservationTime == null ? null : orderReservationTime.trim();
-    }
 
-    public Double getOrderDiscount() {
-        return orderDiscount;
-    }
+    public Date getOrderTime() {
+		return orderTime;
+	}
 
-    public void setOrderDiscount(Double orderDiscount) {
-        this.orderDiscount = orderDiscount;
-    }
+	public void setOrderTime(Date orderTime) {
+		this.orderTime = orderTime;
+	}
 
     public String getOrderCode() {
         return orderCode;
@@ -51,19 +48,19 @@ public class Order {
         this.orderCode = orderCode == null ? null : orderCode.trim();
     }
 
-    public Byte getOrderDishNumber() {
+    public Integer getOrderDishNumber() {
         return orderDishNumber;
     }
 
-    public void setOrderDishNumber(Byte orderDishNumber) {
+    public void setOrderDishNumber(Integer orderDishNumber) {
         this.orderDishNumber = orderDishNumber;
     }
 
-    public Byte getOrderPickNumber() {
+    public Integer getOrderPickNumber() {
         return orderPickNumber;
     }
 
-    public void setOrderPickNumber(Byte orderPickNumber) {
+    public void setOrderPickNumber(Integer orderPickNumber) {
         this.orderPickNumber = orderPickNumber;
     }
 
@@ -90,4 +87,19 @@ public class Order {
     public void setCustomerId(String customerId) {
         this.customerId = customerId == null ? null : customerId.trim();
     }
+
+	public Integer getOrderState() {
+		return orderState;
+	}
+
+	public void setOrderState(Integer orderState) {
+		this.orderState = orderState;
+	}
+
+	@Override
+	public String toString() {
+		return "Order [orderId=" + orderId + ", orderTime=" + orderTime + ", orderCode=" + orderCode
+				+ ", orderDishNumber=" + orderDishNumber + ", orderPickNumber=" + orderPickNumber + ", windowId="
+				+ windowId + ", menuId=" + menuId + ", customerId=" + customerId + ", orderState=" + orderState + "]";
+	}
 }

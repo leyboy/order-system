@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.orders.entity.Window;
 import com.orders.service.impl.WindowService;
 import com.orders.util.ResponseMessage;
+import com.orders.util.ResponseMessageCodeEnum;
 import com.orders.util.Result;
 import com.orders.util.UUID;
 
@@ -35,10 +36,22 @@ public class WindowController {
 	
 	
 	@ApiOperation(value = "新增窗口")
-	@PostMapping(value = "/saveMenu")
+	@PostMapping(value = "/saveWindow")
 	public ResponseMessage<Window> saveWindow(@RequestBody Window window) {
 		window.setWindowId(UUID.randomUUID()); // 设置主键
 		windowService.insertSelective(window);
 		return Result.success(window);
+	}
+	
+	
+	@ApiOperation(value = "登录窗口")
+	@PostMapping(value = "/login/{windowName}")
+	public ResponseMessage<Window> loginWindow(@PathVariable String windowName) {
+		Window window=windowService.loginWindow(windowName);
+		if(window==null){
+			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),"登录失败",null);
+		}else{
+			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),"登录成功",window);
+		}
 	}
 }

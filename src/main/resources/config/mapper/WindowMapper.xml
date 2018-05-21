@@ -16,6 +16,12 @@
 		from tb_window
 		where window_id = #{windowId,jdbcType=VARCHAR}
 	</select>
+	<select id="getWindowByWindowName" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+		<include refid="Base_Column_List"/>
+		from tb_window
+		where window_name = #{windowName}
+	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from tb_window
 		where window_id = #{windowId,jdbcType=VARCHAR}

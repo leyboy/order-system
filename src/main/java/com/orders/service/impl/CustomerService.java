@@ -7,7 +7,7 @@ import com.orders.entity.Customer;
 import com.orders.service.BaseService;
 
 @Service("customerService")
-public class CustomerService extends BaseService<CustomerMapper,Customer,String> {
+public class CustomerService extends BaseService<CustomerMapper, Customer, String> {
 
 	@Override
 	public Integer deleteByPrimaryKey(String primaryKey) {
@@ -43,6 +43,16 @@ public class CustomerService extends BaseService<CustomerMapper,Customer,String>
 	public Integer updateByPrimaryKey(Customer record) {
 		// TODO Auto-generated method stub
 		return this.getDao().updateByPrimaryKey(record);
+	}
+
+	public Boolean login(String customerName, String customerNumber) {
+		boolean isLogin = true;
+		Customer customer = new Customer();
+		customer.setCustomerName(customerName);
+		customer.setCustomerNumber(customerNumber);
+		isLogin = this.getDao().getCustomerByCondition(customer) != null ? true : false;
+		customer = null; // 回收内存
+		return isLogin;
 	}
 
 }
