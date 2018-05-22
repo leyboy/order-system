@@ -19,6 +19,8 @@ import com.orders.entity.Window;
 import com.orders.service.BaseService;
 import com.orders.util.DateUtils;
 import com.orders.util.OrderCodeUtils;
+import com.orders.util.OrdersConstants;
+import com.orders.util.RandomUtils;
 import com.orders.util.UUID;
 import com.orders.vo.MenuOrderVo;
 import com.orders.vo.OrderSaveVo;
@@ -33,7 +35,6 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	 **/
 	private static Integer count = 1;
 
-
 	@Autowired
 	private CustomerService customerService;
 
@@ -44,7 +45,6 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	private MenuService menuService;
 
 	private static Logger logger = LoggerFactory.getLogger(OrderService.class);
-
 
 	@Override
 	public Integer deleteByPrimaryKey(String primaryKey) {
@@ -124,7 +124,7 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	public OrderShowVo getCustomerOrderByOrderCode(String orderCode, String customerId, String windowId) {
 		List<OrderShowVo> orderShowVos = this.getCustomerOrWindowOrderShowVos(customerId, windowId);
 		for (OrderShowVo orderShowVo : orderShowVos) {
-			if(orderCode.equals(orderShowVo.getOrderCode())){
+			if (orderCode.equals(orderShowVo.getOrderCode())) {
 				return orderShowVo;
 			}
 		}
@@ -133,7 +133,7 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 
 	/**
 	 * 根据顾客Id或者窗口Id获取订单号
-	 * **/
+	 **/
 	public List<String> getCustomerOrWindowOrderCodes(String customerId, String windowId) {
 		return this.getDao().listCustomerOrWindowOrderCodes(customerId, windowId);
 	}
@@ -153,17 +153,18 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 			OrderShowVo orderShowVo = new OrderShowVo();
 			Customer customer = customerService.getByPrimaryKey(helpOrder.getCustomerId());
 			Window window = windowService.getByPrimaryKey(helpOrder.getWindowId());
-			orderShowVo.setCustomerName(customer.getCustomerName());;// 设置顾客姓名
-			orderShowVo.setCustomerNumber(customer.getCustomerNumber()); //设置顾客学号
+			orderShowVo.setCustomerName(customer.getCustomerName());// 设置顾客姓名
+		
+			orderShowVo.setCustomerNumber(customer.getCustomerNumber()); // 设置顾客学号
 			orderShowVo.setWindowName(window.getWindowName());// 设置窗口名
-			orderShowVo.setOrderPickNumber(helpOrder.getOrderPickNumber());//设置取货号
+			orderShowVo.setOrderPickNumber(helpOrder.getOrderPickNumber());// 设置取货号
 			orderShowVo.setOrderCode(orderCode); // 设置订单号
 			orderShowVo
 					.setOrderTime(DateUtils.dateToString(helpOrder.getOrderTime(), DateUtils.yyyy_MM_dd_HH_mm_ss_EN));
 			List<MenuOrderVo> menuOrderVos = new ArrayList<>();
 
-			int totalManey = 0;
-
+			int totalManey = 0;//总价钱
+			double discount=OrdersConstants.DISCOUNT_ARRAY[RandomUtils.nextInt(4)];
 			for (Order order : orders) { // 设置菜品
 				MenuOrderVo menuOrderVo = new MenuOrderVo();
 				Menu menu = menuService.getByPrimaryKey(order.getMenuId());
@@ -172,9 +173,10 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 				menuOrderVo.setMenuDishPrice(menu.getMenuDishPrice()); // 设置菜品价格
 				menuOrderVo.setMenuDishName(menu.getMenuName()); // 设置菜品名
 				menuOrderVos.add(menuOrderVo);
-				totalManey += (menuOrderVo.getMenuDishPrice() * menuOrderVo.getOrderDishNumber());
+				totalManey += (menuOrderVo.getMenuDishPrice() * menuOrderVo.getOrderDishNumber()*
+						discount);
 			}
-
+			orderShowVo.setDiscount(discount);//设置折扣
 			orderShowVo.setMenuOrderVos(menuOrderVos);// 设置菜品集合
 			orderShowVo.setTotalManey(totalManey); // 设置总价钱
 			logger.info("orderShowVo:{}", orderShowVo);
@@ -182,4 +184,6 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 		}
 		return orderShowVos;
 	}
+	
+	 
 }

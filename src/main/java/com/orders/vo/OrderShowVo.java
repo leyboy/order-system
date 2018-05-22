@@ -32,6 +32,11 @@ public class OrderShowVo {
 	 * **/
 	private Integer totalManey;
 	
+	/**
+	 * 折扣
+	 * **/
+	private double discount;
+	
 	
 	/**
 	 * 订单号
@@ -122,5 +127,15 @@ public class OrderShowVo {
 
 	public void setOrderPickNumber(Integer orderPickNumber) {
 		this.orderPickNumber = orderPickNumber;
+	}
+
+
+	public double getDiscount() {
+		return discount;
+	}
+
+
+	public void setDiscount(double discount) {
+		this.discount = discount;
 	}
 }
