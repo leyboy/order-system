@@ -76,6 +76,15 @@ public class MenuController {
 		logger.info("删除菜品为{}", menuId);
 		return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(), "删除成功", true);
 	}
+	
+	
+	
+	@ApiOperation(value = "返回菜单版本")
+	@GetMapping(value = "/getMenuVersion")
+	public ResponseMessage<Double> getMenuVersion() {
+		double menuVersion=1.1;
+		return Result.success(menuVersion);
+	}
 
 
 	@ApiOperation(value = "按条件查询菜品")
