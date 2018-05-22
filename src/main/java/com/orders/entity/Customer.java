@@ -1,5 +1,8 @@
 package com.orders.entity;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("_customer")
 public class Customer {
     private String customerId;
 

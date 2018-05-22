@@ -37,9 +37,8 @@ public class CustomerController {
 	
 	@ApiOperation(value = "登录顾客")
 	@PostMapping(value = "/loginCustomer")
-	public ResponseMessage<Boolean> loginCustomer(@RequestParam String customerName,
-			@RequestParam String customerNumber) {
-		boolean isLogin=customerService.login(customerName, customerNumber);
+	public ResponseMessage<Boolean> loginCustomer(@RequestParam String customerNumber) {
+		boolean isLogin=customerService.login(null, customerNumber);
 		if(isLogin){
 			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
 					"登录成功",isLogin);

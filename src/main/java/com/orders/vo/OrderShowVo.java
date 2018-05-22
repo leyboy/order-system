@@ -2,9 +2,6 @@ package com.orders.vo;
 
 import java.util.List;
 
-import com.orders.entity.Customer;
-import com.orders.entity.Window;
-
 public class OrderShowVo {
 
 	/**
@@ -13,14 +10,22 @@ public class OrderShowVo {
 	private List<MenuOrderVo> menuOrderVos;
 
 	/**
-	 * 顾客
+	 * 顾客姓名
 	 **/
-	private Customer customer;
+	private String customerName;
+	
+	/**
+	 * 顾客学号
+	 * **/
+	private String customerNumber;
 
 	/**
 	 * 窗口
 	 **/
-	private Window window;
+	private String windowName;
+	
+	
+	private Integer orderPickNumber;
 	
 	/**
 	 * 订单总价钱
@@ -38,54 +43,84 @@ public class OrderShowVo {
 	 * 订单时间
 	 * **/
 	private String orderTime;
-	
+
 
 	public List<MenuOrderVo> getMenuOrderVos() {
 		return menuOrderVos;
 	}
 
+
 	public void setMenuOrderVos(List<MenuOrderVo> menuOrderVos) {
 		this.menuOrderVos = menuOrderVos;
 	}
 
-	public Customer getCustomer() {
-		return customer;
+
+	public String getCustomerName() {
+		return customerName;
 	}
 
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
+
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
 	}
 
-	public Window getWindow() {
-		return window;
+
+	public String getCustomerNumber() {
+		return customerNumber;
 	}
 
-	public void setWindow(Window window) {
-		this.window = window;
+
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
 	}
-	
-	
+
+
+	public String getWindowName() {
+		return windowName;
+	}
+
+
+	public void setWindowName(String windowName) {
+		this.windowName = windowName;
+	}
+
+
 	public Integer getTotalManey() {
 		return totalManey;
 	}
+
 
 	public void setTotalManey(Integer totalManey) {
 		this.totalManey = totalManey;
 	}
 
+
 	public String getOrderCode() {
 		return orderCode;
 	}
+
 
 	public void setOrderCode(String orderCode) {
 		this.orderCode = orderCode;
 	}
 
+
 	public String getOrderTime() {
 		return orderTime;
 	}
 
+
 	public void setOrderTime(String orderTime) {
 		this.orderTime = orderTime;
+	}
+
+
+	public Integer getOrderPickNumber() {
+		return orderPickNumber;
+	}
+
+
+	public void setOrderPickNumber(Integer orderPickNumber) {
+		this.orderPickNumber = orderPickNumber;
 	}
 }

@@ -186,4 +186,28 @@
 		o.menu_id = m.menu_id
 		group by m.menu_id
 	</select>
+
+
+	<!-- 根据窗口Id或者顾客Id获取订单号 -->
+	<select id="listCustomerOrWindowOrderCodes" resultType="java.lang.Object"
+		parameterType="java.lang.String">
+		select o.order_code from tb_order o
+		<where>
+			<if test="customerId != null and customerId != ''">
+				and o.customer_id = #{customerId}
+			</if>
+			<if test="windowId != null and windowId != ''">
+				and o.window_id = #{windowId}
+			</if>
+			group by o.order_code
+			ORDER BY o.order_time DESC 
+		</where>
+	</select>
+
+
+	<!-- 根据订单号获取订单 -->
+	<select id="getCustomerOrderByOrderCode" resultMap="BaseResultMap"
+		parameterType="java.lang.String">
+		select * from tb_order where order_code = #{orderCode}
+	</select>
 </mapper>
