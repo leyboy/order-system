@@ -60,7 +60,7 @@ public class OrderController {
 	}
 
 	@ApiOperation(value = "根据订单号获取订单详情")
-	@GetMapping(value = "/getCustomerOrWindowOrder/{orderCode}")
+	@GetMapping(value = "/getCustomerOrWindowOrder")
 	public ResponseMessage<OrderShowVo> getCustomerOrderByOrderCode(
 			@ApiParam(value = "订单号") @RequestParam(required = false) String orderCode,
 			@ApiParam(value = "顾客Id") @RequestParam(required = false) String customerId,
