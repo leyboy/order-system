@@ -40,6 +40,7 @@ public class MenuController {
 
 	@Autowired
 	private WindowService windowService;
+
 	
 
 	private static Logger logger = LoggerFactory.getLogger(MenuController.class);
@@ -84,7 +85,7 @@ public class MenuController {
 
 
 	@ApiOperation(value = "按条件查询菜品")
-	@GetMapping(value = "/queryMenusByCondition")
+	@GetMapping(value = {"/queryMenusByCondition"})
 	public ResponseMessage<?> queryMenusByCondition(
 			@ApiParam(value = "菜品名") @RequestParam(value = "menuName", required = false) String menuName) {
 		Menu condition=new Menu();

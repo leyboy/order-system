@@ -1,5 +1,6 @@
 package com.orders.util;
 
+
 /**
  * Orders constants
  **/
@@ -30,4 +31,5 @@ public class OrdersConstants {
 	 * random discount
 	 **/
 	public final static double[] DISCOUNT_ARRAY = { 0.9, 0.8, 0.7, 0.6, 0.5 };
+
 }
