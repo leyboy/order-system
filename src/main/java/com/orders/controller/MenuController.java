@@ -1,8 +1,7 @@
 package com.orders.controller;
 
-import java.util.HashMap;
+
 import java.util.List;
-import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orders.entity.Menu;
-import com.orders.entity.Window;
 import com.orders.service.impl.MenuService;
 import com.orders.service.impl.WindowService;
 import com.orders.util.BeanMapper;
-import com.orders.util.PageUtils;
 import com.orders.util.ResponseMessage;
 import com.orders.util.ResponseMessageCodeEnum;
 import com.orders.util.Result;
@@ -89,28 +86,20 @@ public class MenuController {
 
 	@ApiOperation(value = "按条件查询菜品")
 	@GetMapping(value = "/queryMenusByCondition")
-	public ResponseMessage<Map<String, Object>> queryMenusByCondition(
-			@ApiParam(value = "菜品名") @RequestParam(value = "menuName", required = false) String menuName,
-			@ApiParam(value = "窗口Id") @RequestParam(value = "windowId", required = true) String windowId,
-			@ApiParam(value = "当前页") @RequestParam(value = "pageNum", required = false) Integer pageNum,
-			@ApiParam(value = "每页记录数") @RequestParam(value = "pageSize", required = false) Integer pageSize) {
-		Map<String, Object> map = new HashMap<>();
-		Window window = windowService.getByPrimaryKey(windowId);
-		map.put("currentWindow", window);
-		Menu menu = new Menu();
-		menu.setWindowId(windowId);
-		if (menuName != null && (!"".equals(menuName))) {
-			menu.setMenuName(menuName);
+	public ResponseMessage<List<MenuVo>> queryMenusByCondition(
+			@ApiParam(value = "菜品名") @RequestParam(value = "menuName", required = false) String menuName) {
+		Menu condition=new Menu();
+		if(menuName!=null&&(!"".equals(menuName))){
+			condition.setMenuName(menuName);
 		}
-		List<MenuVo> menuVOs = beanMapper.mapList(menuService.listMenusByCondition(menu, pageSize, pageNum), MenuVo.class);
-		map.put("menuVOs", menuVOs);
-		int totalCount = menuService.countMenusByCondition(menu);
-		map.put("totalCount", totalCount);
-		if (pageSize == null) {
-			pageSize = PageUtils.DEFAULT_PER_PAGE_SIZE;
+		List<Menu> menus=menuService.listMenusByCondition(condition, Integer.MAX_VALUE, 1);
+		List<MenuVo> menuVos=beanMapper.mapList(menus, MenuVo.class);
+		for (MenuVo menuVo : menuVos) {
+			menuVo.setWindowName(windowService.getByPrimaryKey(menuVo.getWindowId()).getWindowName());
+			logger.info("menuVo windowId:{},windowName:{}",menuVo.getWindowId(),
+					menuVo.getWindowName());
 		}
-		logger.info("pageNum:{},pageSize:{}",pageNum,pageSize);
-		map.put("totalPages", PageUtils.getTotalPages(pageSize, totalCount));
-		return Result.success(map);
+
+		return Result.success(menuVos);
 	}
 }

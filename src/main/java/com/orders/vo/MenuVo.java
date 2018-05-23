@@ -1,34 +1,16 @@
 package com.orders.vo;
 
-public class MenuVo {
+import com.orders.entity.Menu;
 
-    private String menuId;
+public class MenuVo extends Menu{
 
-    private String menuName;
+	private String windowName;
 
-    private Integer menuDishPrice;
-
-	public String getMenuId() {
-		return menuId;
+	public String getWindowName() {
+		return windowName;
 	}
 
-	public String getMenuName() {
-		return menuName;
-	}
-
-	public Integer getMenuDishPrice() {
-		return menuDishPrice;
-	}
-
-	public void setMenuId(String menuId) {
-		this.menuId = menuId;
-	}
-
-	public void setMenuName(String menuName) {
-		this.menuName = menuName;
-	}
-
-	public void setMenuDishPrice(Integer menuDishPrice) {
-		this.menuDishPrice = menuDishPrice;
+	public void setWindowName(String windowName) {
+		this.windowName = windowName;
 	}
 }
