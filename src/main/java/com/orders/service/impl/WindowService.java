@@ -1,5 +1,7 @@
 package com.orders.service.impl;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.orders.dao.WindowMapper;
@@ -51,5 +53,9 @@ public class WindowService extends BaseService<WindowMapper, Window, String> {
 	public Window loginWindow(String windowName) {
 		Window findWindow = this.getDao().getWindowByWindowName(windowName);
 		return findWindow;
+	}
+	
+	public List<Window> getAllWindows(){
+		return this.getDao().getAllWindows();
 	}
 }

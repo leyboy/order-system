@@ -1,6 +1,8 @@
 package com.orders.dao;
 
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -8,6 +10,7 @@ import com.orders.entity.Window;
 
 @Mapper
 public interface WindowMapper {
+	
     int deleteByPrimaryKey(String windowId);
 
     int insert(Window record);
@@ -20,7 +23,7 @@ public interface WindowMapper {
 
     int updateByPrimaryKey(Window record);
     
-    
     Window getWindowByWindowName(@Param("windowName")String windowName);
   
+    List<Window> getAllWindows();
 }

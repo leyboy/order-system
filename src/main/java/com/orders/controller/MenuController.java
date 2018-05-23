@@ -1,6 +1,7 @@
 package com.orders.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -16,9 +17,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.orders.entity.Menu;
+import com.orders.entity.Window;
 import com.orders.service.impl.MenuService;
 import com.orders.service.impl.WindowService;
-import com.orders.util.BeanMapper;
 import com.orders.util.ResponseMessage;
 import com.orders.util.ResponseMessageCodeEnum;
 import com.orders.util.Result;
@@ -40,8 +41,6 @@ public class MenuController {
 	@Autowired
 	private WindowService windowService;
 	
-	@Autowired
-	private BeanMapper beanMapper;
 
 	private static Logger logger = LoggerFactory.getLogger(MenuController.class);
 
@@ -86,20 +85,35 @@ public class MenuController {
 
 	@ApiOperation(value = "按条件查询菜品")
 	@GetMapping(value = "/queryMenusByCondition")
-	public ResponseMessage<List<MenuVo>> queryMenusByCondition(
+	public ResponseMessage<?> queryMenusByCondition(
 			@ApiParam(value = "菜品名") @RequestParam(value = "menuName", required = false) String menuName) {
 		Menu condition=new Menu();
+		List<Menu> menus=null;
 		if(menuName!=null&&(!"".equals(menuName))){
 			condition.setMenuName(menuName);
+			menus=menuService.listMenusByCondition(condition, Integer.MAX_VALUE, 1);
+			MenuVo menuVo=new MenuVo();
+			menuVo.setMenus(menus);
+			if(menus!=null&&menus.size()>0){
+				menuVo.setWindowId(menus.get(0).getWindowId());
+				menuVo.setWindowName(windowService.getByPrimaryKey(menuVo.getWindowId()).getWindowName());
+				return Result.success(menuVo);
+			}else{
+				return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),null,"没有查询到该名称的菜品");
+			}
+		}else{
+			List<Window> windows=windowService.getAllWindows();
+			List<MenuVo> menuVos=new ArrayList<>(windows.size());
+			for (Window window : windows) {
+				MenuVo menuVo=new MenuVo();
+				condition.setWindowId(window.getWindowId());
+				menus=menuService.listMenusByCondition(condition, Integer.MAX_VALUE, 1);
+				menuVo.setMenus(menus);
+				menuVo.setWindowId(window.getWindowId());
+				menuVo.setWindowName(window.getWindowName());
+				menuVos.add(menuVo);
+			}
+			return Result.success(menuVos);
 		}
-		List<Menu> menus=menuService.listMenusByCondition(condition, Integer.MAX_VALUE, 1);
-		List<MenuVo> menuVos=beanMapper.mapList(menus, MenuVo.class);
-		for (MenuVo menuVo : menuVos) {
-			menuVo.setWindowName(windowService.getByPrimaryKey(menuVo.getWindowId()).getWindowName());
-			logger.info("menuVo windowId:{},windowName:{}",menuVo.getWindowId(),
-					menuVo.getWindowName());
-		}
-
-		return Result.success(menuVos);
 	}
 }
