@@ -12,6 +12,10 @@ public class OrderSaveVo extends Order {
 	 * **/
 	private String orderTimeShow;
 	
+	/**
+	 * 顾客号
+	 * **/
+	private String customerNumber;
 	
 	/**
 	 * 菜品集合
@@ -38,5 +42,14 @@ public class OrderSaveVo extends Order {
 	public void setOrderTimeShow(String orderTimeShow) {
 		this.orderTimeShow = orderTimeShow;
 	}
-	
+
+
+	public String getCustomerNumber() {
+		return customerNumber;
+	}
+
+
+	public void setCustomerNumber(String customerNumber) {
+		this.customerNumber = customerNumber;
+	}
 }

@@ -54,7 +54,7 @@ public class CustomerController {
 	@ApiOperation(value = "登录顾客")
 	@GetMapping(value = "/loginCustomer")
 	public ResponseMessage<List<MenuVo>> loginCustomer(@RequestParam(value="customerNumber") String customerNumber) {
-		boolean isLogin=customerService.login(null, customerNumber);
+		Customer customer=customerService.login(null, customerNumber);
 		List<Window> windows=windowService.getAllWindows();
 		List<MenuVo> menuVos=new ArrayList<>(windows.size());
 		Menu condition=new Menu();
@@ -68,7 +68,7 @@ public class CustomerController {
 			menuVo.setWindowName(window.getWindowName());
 			menuVos.add(menuVo);
 		}
-		if(isLogin){
+		if(customer!=null){
 			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
 					"登录成功",menuVos);
 		}else{

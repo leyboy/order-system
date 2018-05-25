@@ -99,7 +99,6 @@ public class RequestInfoFilter implements Filter {
 	private void logParams(HttpServletRequest request) {
 		Map<String, String> maps = new HashMap<>();
 		Enumeration<String> keys = request.getParameterNames();
-
 		while (keys.hasMoreElements()) {
 			String key = (String) keys.nextElement();
 			if (StringUtils.isNotEmpty(key)) {

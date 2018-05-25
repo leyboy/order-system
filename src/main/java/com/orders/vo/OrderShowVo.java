@@ -18,11 +18,7 @@ public class OrderShowVo {
 	 * 顾客学号
 	 * **/
 	private String customerNumber;
-
-	/**
-	 * 窗口
-	 **/
-	private String windowName;
+	
 	
 	
 	private Integer orderPickNumber;
@@ -77,16 +73,6 @@ public class OrderShowVo {
 
 	public void setCustomerNumber(String customerNumber) {
 		this.customerNumber = customerNumber;
-	}
-
-
-	public String getWindowName() {
-		return windowName;
-	}
-
-
-	public void setWindowName(String windowName) {
-		this.windowName = windowName;
 	}
 
 

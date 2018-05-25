@@ -45,14 +45,12 @@ public class CustomerService extends BaseService<CustomerMapper, Customer, Strin
 		return this.getDao().updateByPrimaryKey(record);
 	}
 
-	public Boolean login(String customerName, String customerNumber) {
-		boolean isLogin = true;
+	public Customer login(String customerName, String customerNumber) {
 		Customer customer = new Customer();
 		customer.setCustomerName(customerName);
 		customer.setCustomerNumber(customerNumber);
-		isLogin = this.getDao().getCustomerByCondition(customer) != null ? true : false;
-		customer = null; // 回收内存
-		return isLogin;
+		customer = this.getDao().getCustomerByCondition(customer);
+		return customer;
 	}
 
 }

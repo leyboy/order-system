@@ -24,6 +24,16 @@ public class MenuOrderVo {
 	
 	private Integer menuDishPrice;
 	
+	/**
+	 * window窗口
+	 * **/
+	private String windowId;
+	
+	/**
+	 * 窗口名
+	 * **/
+	private String windowName;
+	
 	
 	public String getMenuId() {
 		return menuId;
@@ -55,5 +65,30 @@ public class MenuOrderVo {
 
 	public void setMenuDishPrice(Integer menuDishPrice) {
 		this.menuDishPrice = menuDishPrice;
+	}
+
+	public String getWindowId() {
+		return windowId;
+	}
+
+	public void setWindowId(String windowId) {
+		this.windowId = windowId;
+	}
+
+	public String getWindowName() {
+		return windowName;
+	}
+
+	public void setWindowName(String windowName) {
+		this.windowName = windowName;
+	}
+
+	@Override
+	public String toString() {
+		return "MenuOrderVo [menuId=" + menuId + ", orderDishNumber=" + orderDishNumber + ", menuDishName="
+				+ menuDishName + ", menuDishPrice=" + menuDishPrice + ", windowId=" + windowId + ", windowName="
+				+ windowName + "]";
 	} 
+
+	
 }

@@ -105,14 +105,15 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	private Order saveCustomerOrderHelper1(OrderSaveVo orderVo, Date currentDate, String orderCode,
 			MenuOrderVo menuOrderVo) {
 		Order saveOrder = new Order();
-		saveOrder.setWindowId(orderVo.getWindowId()); // 设置窗口Id
+		saveOrder.setWindowId(menuOrderVo.getWindowId()); // 设置窗口Id
 		saveOrder.setOrderTime(currentDate); // 设置下单时间
 		saveOrder.setOrderId(UUID.randomUUID()); // 设置订单主键
 		saveOrder.setMenuId(menuOrderVo.getMenuId()); // 设置menuId
 		saveOrder.setOrderDishNumber(menuOrderVo.getOrderDishNumber()); // 设置订购菜品的数量
 		saveOrder.setOrderCode(orderCode);// 设置订单号
 		saveOrder.setOrderPickNumber(count); // 设置取货号
-		saveOrder.setCustomerId(orderVo.getCustomerId());// 设置顾客Id
+		Customer customer=customerService.login(null, orderVo.getCustomerNumber());
+		saveOrder.setCustomerId(customer.getCustomerId());// 设置顾客Id
 		saveOrder.setOrderState(0); // 设置订单状态
 		this.getDao().insertSelective(saveOrder);
 		return saveOrder;
@@ -141,9 +142,10 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	/**
 	 * 获取窗口或者顾客的总订单
 	 **/
-	public List<OrderShowVo> getCustomerOrWindowOrderShowVos(String customerId, String windowId) {
+	public List<OrderShowVo> getCustomerOrWindowOrderShowVos(String customerNumber, String windowId) {
 		List<OrderShowVo> orderShowVos = new ArrayList<>();
-		List<String> customerOrderCodes = this.getDao().listCustomerOrWindowOrderCodes(customerId, windowId);
+		Customer customerTmp=customerService.login(null, customerNumber);
+		List<String> customerOrderCodes = this.getDao().listCustomerOrWindowOrderCodes(customerTmp.getCustomerId(), windowId);
 		logger.info("customerOrderCodes:{}", Arrays.asList(customerOrderCodes));
 		for (String orderCode : customerOrderCodes) {
 
@@ -152,11 +154,9 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 			logger.info("helpOrder:{}", helpOrder);
 			OrderShowVo orderShowVo = new OrderShowVo();
 			Customer customer = customerService.getByPrimaryKey(helpOrder.getCustomerId());
-			Window window = windowService.getByPrimaryKey(helpOrder.getWindowId());
 			orderShowVo.setCustomerName(customer.getCustomerName());// 设置顾客姓名
 		
 			orderShowVo.setCustomerNumber(customer.getCustomerNumber()); // 设置顾客学号
-			orderShowVo.setWindowName(window.getWindowName());// 设置窗口名
 			orderShowVo.setOrderPickNumber(helpOrder.getOrderPickNumber());// 设置取货号
 			orderShowVo.setOrderCode(orderCode); // 设置订单号
 			orderShowVo
@@ -168,10 +168,12 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 			for (Order order : orders) { // 设置菜品
 				MenuOrderVo menuOrderVo = new MenuOrderVo();
 				Menu menu = menuService.getByPrimaryKey(order.getMenuId());
+				Window window=windowService.getByPrimaryKey(order.getWindowId());
 				menuOrderVo.setMenuId(menu.getMenuId()); // 设置菜名Id
 				menuOrderVo.setOrderDishNumber(order.getOrderDishNumber()); // 设置订购菜品数量
 				menuOrderVo.setMenuDishPrice(menu.getMenuDishPrice()); // 设置菜品价格
 				menuOrderVo.setMenuDishName(menu.getMenuName()); // 设置菜品名
+				menuOrderVo.setWindowName(window.getWindowName()); //设置窗口名
 				menuOrderVos.add(menuOrderVo);
 				totalManey += (menuOrderVo.getMenuDishPrice() * menuOrderVo.getOrderDishNumber()*
 						discount);
