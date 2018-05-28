@@ -50,7 +50,7 @@ public class CustomerController {
 		return Result.success(customer);
 	}
 	
-	
+	/*
 	@ApiOperation(value = "登录顾客")
 	@GetMapping(value = "/loginCustomer")
 	public ResponseMessage<List<MenuVo>> loginCustomer(@RequestParam(value="customerNumber") String customerNumber) {
@@ -74,6 +74,21 @@ public class CustomerController {
 		}else{
 			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
 					"登录失败",null);
+		}
+	}
+	*/
+	
+	
+	@ApiOperation(value = "登录顾客")
+	@GetMapping(value = "/loginCustomer")
+	public ResponseMessage<Double> loginCustomer(@RequestParam(value="customerNumber") String customerNumber) {
+		Customer customer=customerService.login(null, customerNumber);
+		if(customer!=null){
+			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
+					"登录成功",1.1d);
+		}else{
+			return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),
+					"登录失败",-1.0d);
 		}
 	}
 }

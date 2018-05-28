@@ -20,10 +20,12 @@ import com.orders.entity.Menu;
 import com.orders.entity.Window;
 import com.orders.service.impl.MenuService;
 import com.orders.service.impl.WindowService;
+import com.orders.util.BeanMapper;
 import com.orders.util.ResponseMessage;
 import com.orders.util.ResponseMessageCodeEnum;
 import com.orders.util.Result;
 import com.orders.util.UUID;
+import com.orders.vo.MenuSaveVo;
 import com.orders.vo.MenuVo;
 
 import io.swagger.annotations.Api;
@@ -41,7 +43,8 @@ public class MenuController {
 	@Autowired
 	private WindowService windowService;
 
-	
+	@Autowired
+	private BeanMapper beanMapper;
 
 	private static Logger logger = LoggerFactory.getLogger(MenuController.class);
 
@@ -52,16 +55,17 @@ public class MenuController {
 	}
 
 	@ApiOperation(value = "新增菜品")
-	@PostMapping(value = "/saveMenu")
-	public ResponseMessage<Menu> saveMenu(@RequestBody Menu menu) {
-		menu.setMenuId(UUID.randomUUID()); // 设置主键
+	@PostMapping(value = "/saveMenu",consumes={"application/x-www-form-urlencoded"})
+	public ResponseMessage<Menu> saveMenu(MenuSaveVo menuSaveVo) {
+		Menu menu=beanMapper.map(menuSaveVo, Menu.class);
+		menu.setMenuId(UUID.randomUUID());
 		menuService.insertSelective(menu);
 		return Result.success(menu);
 	}
 
 	@ApiOperation(value = "修改菜品")
-	@PostMapping(value = "/updateMenu")
-	public ResponseMessage<Menu> updateMenu(@RequestBody Menu menu) {
+	@PostMapping(value = "/updateMenu",consumes={"application/x-www-form-urlencoded"})
+	public ResponseMessage<Menu> updateMenu(Menu menu) {
 		menuService.updateByPrimaryKeySelective(menu);
 		return Result.success(menu);
 	}

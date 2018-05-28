@@ -3,7 +3,9 @@ package com.orders.service.impl;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -89,17 +91,24 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	/**
 	 * 保存顾客订单
 	 **/
-	public void saveCustomerOrder(OrderSaveVo orderVo) {
+	public Map<String, Object> saveCustomerOrder(OrderSaveVo orderVo) {
+		Map<String, Object> map=new HashMap<>();
 		List<MenuOrderVo> menuOrderVos = orderVo.getMenuOrderVos();
 		if (!CollectionUtils.isEmpty(menuOrderVos)) {
 			Date currentDate = new Date(System.currentTimeMillis());
 			logger.info("menuOrderVos:{}", Arrays.asList(menuOrderVos));
 			String orderCode = OrderCodeUtils.generateOrderCode(currentDate);
+			int orderPickNumber=-1;
 			for (MenuOrderVo menuOrderVo : menuOrderVos) {
-				saveCustomerOrderHelper1(orderVo, currentDate, orderCode, menuOrderVo);
+				Order order=saveCustomerOrderHelper1(orderVo, currentDate, orderCode, menuOrderVo);
+				orderPickNumber=order.getOrderPickNumber();
 			}
 			count++;
+			map.put("orderTime",DateUtils.dateToString(currentDate,DateUtils.yyyy_MM_dd_HH_mm_ss_EN));
+			map.put("orderCode", orderCode);
+			map.put("orderPickNumber", orderPickNumber);
 		}
+		return map;
 	}
 
 	private Order saveCustomerOrderHelper1(OrderSaveVo orderVo, Date currentDate, String orderCode,
@@ -144,8 +153,13 @@ public class OrderService extends BaseService<OrderMapper, Order, String> {
 	 **/
 	public List<OrderShowVo> getCustomerOrWindowOrderShowVos(String customerNumber, String windowId) {
 		List<OrderShowVo> orderShowVos = new ArrayList<>();
-		Customer customerTmp=customerService.login(null, customerNumber);
-		List<String> customerOrderCodes = this.getDao().listCustomerOrWindowOrderCodes(customerTmp.getCustomerId(), windowId);
+		List<String> customerOrderCodes=null;
+		if(customerNumber==null){
+			customerOrderCodes = this.getDao().listCustomerOrWindowOrderCodes(null, windowId);
+		}else{
+			Customer customerTmp=customerService.login(null, customerNumber);
+			customerOrderCodes = this.getDao().listCustomerOrWindowOrderCodes(customerTmp.getCustomerId(), null);
+		}
 		logger.info("customerOrderCodes:{}", Arrays.asList(customerOrderCodes));
 		for (String orderCode : customerOrderCodes) {
 

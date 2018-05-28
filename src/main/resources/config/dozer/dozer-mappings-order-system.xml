@@ -7,4 +7,9 @@
 		<class-a>com.orders.entity.Menu</class-a>
 		<class-b>com.orders.vo.MenuVo</class-b>
 	</mapping>
+		<mapping>
+		<!--配置Menu的实体和VO对应 -->
+		<class-a>com.orders.entity.Menu</class-a>
+		<class-b>com.orders.vo.MenuSaveVo</class-b>
+	</mapping>
 </mappings>

@@ -1,6 +1,7 @@
 package com.orders.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -89,8 +90,8 @@ public class OrderController {
 
 	@ApiOperation(value = "保存顾客订单")
 	@PostMapping(value = "/saveCustomerOrder")
-	public ResponseMessage<String> saveCustomerOrder(@RequestBody OrderSaveVo orderVo) {
+	public ResponseMessage<Map<String,Object>> saveCustomerOrder(@RequestBody OrderSaveVo orderVo) {
 		orderService.saveCustomerOrder(orderVo);
-		return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(), "保存订单成功");
+		return Result.success(ResponseMessageCodeEnum.SUCCESS.getCode(),"保存订单成功",orderService.saveCustomerOrder(orderVo));
 	}
 }
